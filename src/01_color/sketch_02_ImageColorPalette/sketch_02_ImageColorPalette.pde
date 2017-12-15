@@ -11,18 +11,18 @@ color[] colors;
 String sortMode = null;
 
 void setup(){
-  size(500, 500);
+  size(1000, 1000);
   colorMode(HSB, 360, 100, 100, 100);
   noStroke();
-  noCursor();
+  //noCursor();
   img = loadImage("lena.jpg");
   image(img, 0, 0);
   
 }
 
 void draw(){
-
-  int tileCount = width / max(10, 3);
+  background(0);
+  int tileCount = width / max(5, 3);
   float rectSize = width / float(tileCount);
 
   // get colors from image
@@ -44,12 +44,27 @@ void draw(){
   i = 0;
   for (int gridY=0; gridY<tileCount; gridY++) {
     for (int gridX=0; gridX<tileCount; gridX++) {
-      gridX+=second();
-      while (gridX >= tileCount) {
-        gridX-=tileCount;
-      }
       fill(colors[i]);
-      rect(gridX*rectSize, gridY*rectSize, rectSize, rectSize);
+      float x = gridX*rectSize+rectSize/2;
+      float y = gridY*rectSize+rectSize/2;
+      //int rand = int(random(2));
+      //if (rand == 0) {
+      //  rectSize += (sq((mouseX - x)) + sq((mouseY - y)))*0.000000005;
+      //} else {
+      //  rectSize -= (sq((mouseX - x)) + sq((mouseY - y)))*0.000000005;
+      //}
+      rectSize += (sq((mouseX - x)) + sq((mouseY - y)))*0.0000000005;
+      //ellipse(x, y, rectSize, rectSize);
+      if(mouseX>x && mouseY>y){
+        ellipse(x+rectSize, y+rectSize, 5, 5);
+      }else if(mouseX>x && mouseY<y){
+        ellipse(x+rectSize, y-rectSize, 5, 5);
+      }else if(mouseX<x && mouseY>y){
+        ellipse(x-rectSize, y+rectSize, 5, 5);
+      }else{
+        ellipse(x-rectSize, y-rectSize, 5, 5);
+      }
+      //rect(x+rectSize, y+rectSize, 10, 10);
       i++;
     }
   }
