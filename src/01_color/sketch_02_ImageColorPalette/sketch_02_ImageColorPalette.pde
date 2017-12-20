@@ -11,7 +11,7 @@ color[] colors;
 String sortMode = null;
 
 void setup(){
-  size(1000, 1000);
+  size(600, 600);
   colorMode(HSB, 360, 100, 100, 100);
   noStroke();
   //noCursor();
@@ -22,7 +22,7 @@ void setup(){
 
 void draw(){
   background(0);
-  int tileCount = width / max(5, 3);
+  int tileCount = width / max(10, 3);
   float rectSize = width / float(tileCount);
 
   // get colors from image
@@ -47,23 +47,19 @@ void draw(){
       fill(colors[i]);
       float x = gridX*rectSize+rectSize/2;
       float y = gridY*rectSize+rectSize/2;
-      //int rand = int(random(2));
-      //if (rand == 0) {
-      //  rectSize += (sq((mouseX - x)) + sq((mouseY - y)))*0.000000005;
-      //} else {
-      //  rectSize -= (sq((mouseX - x)) + sq((mouseY - y)))*0.000000005;
-      //}
-      rectSize += (sq((mouseX - x)) + sq((mouseY - y)))*0.0000000005;
-      //ellipse(x, y, rectSize, rectSize);
-      if(mouseX>x && mouseY>y){
-        ellipse(x+rectSize, y+rectSize, 5, 5);
-      }else if(mouseX>x && mouseY<y){
-        ellipse(x+rectSize, y-rectSize, 5, 5);
-      }else if(mouseX<x && mouseY>y){
-        ellipse(x-rectSize, y+rectSize, 5, 5);
-      }else{
-        ellipse(x-rectSize, y-rectSize, 5, 5);
+      int rand = int(random(2));
+      
+      rectSize += sq((mouseX - x) + (mouseY - y))*0.000000005;
+      if (x > mouseX && y > mouseY) {
+        rect(x+rectSize, y+rectSize, 10, 10);
+      } else if (x > mouseX && y < mouseY) {
+        rect(x+rectSize, y+rectSize, 10, 10);
+      } else if (x < mouseX && y > mouseY) {
+        rect(x+rectSize, y+rectSize, 10, 10);
+      } else {
+        rect(x+rectSize, y+rectSize, 10, 10);
       }
+      
       //rect(x+rectSize, y+rectSize, 10, 10);
       i++;
     }
